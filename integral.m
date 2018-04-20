@@ -3,10 +3,13 @@ gyro = data(:, 4:6);
 Hz = 80;
 delta_t = 1/Hz;
 u = [0,0,0];
+deg = [];
 
 for i=1:length(data)
+    disp(MakeQuaternion(u));
     q = QuaternionMultiply(MakeQuaternion(u), MakeQuaternion(gyro(i,:) * delta_t));
-    u = Quaternion2RotaionVector(q);
+    u = Quaternion2RotationVector(q);
+    deg = [deg; u];
 end
 
 figure
