@@ -5,7 +5,7 @@ delta_t = 1/Hz;
 u = [0,0,0];
 deg = [];
 
-f_skip = 20;
+f_skip = 10;
 for i=1:length(data)
     %disp(MakeQuaternion(u));
     q = QuaternionMultiply(MakeQuaternion(u), MakeQuaternion(gyro(i,:) * delta_t));
