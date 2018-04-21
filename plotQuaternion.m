@@ -1,11 +1,11 @@
-function plotQuaternion( q )
+function F = plotQuaternion( q )
     figure(9);
     clf;
     hold on;
     origin = [0, 0, 0, 0];
-    qX = QuaternionMultiply([0;1;0;0], q);
-    qY = QuaternionMultiply([0;0;1;0], q);
-    qZ = QuaternionMultiply([0;0;0;1], q);
+    qX = QuaternionMultiply(QuaternionMultiply(q, [0;1;0;0]), QuaternionInverse(q) );
+    qY = QuaternionMultiply(QuaternionMultiply(q, [0;0;1;0]), QuaternionInverse(q) );
+    qZ = QuaternionMultiply(QuaternionMultiply(q, [0;0;0;1]), QuaternionInverse(q) );
     x = [origin; qX']';
     y = [origin; qY']';
     z = [origin; qZ']';

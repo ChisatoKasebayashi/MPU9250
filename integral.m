@@ -1,14 +1,17 @@
-data = load('log/imu_exp03.log');
+data = load('log/imu_exp01.log');
 gyro = data(:, 4:6);
 Hz = 80;
 delta_t = 1/Hz;
 u = [0,0,0];
 deg = [];
 
+f_skip = 20;
 for i=1:length(data)
     %disp(MakeQuaternion(u));
     q = QuaternionMultiply(MakeQuaternion(u), MakeQuaternion(gyro(i,:) * delta_t));
-    plotQuaternion(q); 
+    if rem(i,f_skip) == 0
+        plotQuaternion(q); 
+    end
     u = Quaternion2RotationVector(q);
     deg = [deg; u];
 end
