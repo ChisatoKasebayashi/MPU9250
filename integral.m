@@ -10,7 +10,13 @@ for i=1:length(data)
     %disp(MakeQuaternion(u));
     q = QuaternionMultiply(MakeQuaternion(u), MakeQuaternion(gyro(i,:) * delta_t));
     if rem(i,f_skip) == 0
-        plotQuaternion(q); 
+        norm = sqrt(sum(q(2:4).^2));
+        q_normal = q / norm;
+        q_normal(1) = q(1);
+        qX = QuaternionMultiply(QuaternionMultiply(q_normal, MakeQuaternion(u)), QuaternionInverse(q_normal) );
+        qY = QuaternionMultiply(QuaternionMultiply(q_normal, MakeQuaternion(u)), QuaternionInverse(q_normal) );
+        qZ = QuaternionMultiply(QuaternionMultiply(q_normal, MakeQuaternion(u)), QuaternionInverse(q_normal) );
+        plotQuaternion(qX,qY,qZ); 
     end
     u = Quaternion2RotationVector(q);
     deg = [deg; u];

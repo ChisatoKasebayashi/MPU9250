@@ -1,8 +1,10 @@
-function F = plotQuaternion( q )
+function F = plotQuaternion( qX,qY,qZ )
     figure(9);
     clf;
     hold on;
+    
     origin = [0, 0, 0, 0];
+    %{
     norm = sqrt(sum(q(2:4).^2));
     q_normal = q / norm;
     q_normal(1) = q(1);
@@ -10,6 +12,7 @@ function F = plotQuaternion( q )
     qX = QuaternionMultiply(QuaternionMultiply(q_normal, [0;1;0;0]), QuaternionInverse(q_normal) );
     qY = QuaternionMultiply(QuaternionMultiply(q_normal, [0;0;1;0]), QuaternionInverse(q_normal) );
     qZ = QuaternionMultiply(QuaternionMultiply(q_normal, [0;0;0;1]), QuaternionInverse(q_normal) );
+    %}
     x = [origin; qX']';
     y = [origin; qY']';
     z = [origin; qZ']';
